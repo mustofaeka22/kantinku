@@ -26,6 +26,14 @@ export default function RiwayatPage() {
     }
   }, []);
 
+  // FUNGSI UNTUK MENGHAPUS SEMUA RIWAYAT DENGAN KONFIRMASI
+  const handleHapusRiwayat = () => {
+    if (confirm("Apakah kamu yakin ingin menghapus seluruh riwayat pesanan?")) {
+      localStorage.removeItem("riwayat");
+      setRiwayatList([]);
+    }
+  };
+
   if (riwayatList.length === 0) {
     return (
       <div className="max-w-2xl mx-auto text-center py-16 bg-white border rounded-2xl shadow-sm space-y-4">
@@ -45,11 +53,21 @@ export default function RiwayatPage() {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-        <h2 className="text-2xl font-bold text-slate-800">Riwayat Pesanan</h2>
-        <div className="bg-orange-50 border border-orange-200 text-orange-800 text-xs px-4 py-2 rounded-xl font-medium">
-          Ringkasan: <strong>{riwayatList.length} pesanan</strong> | Total belanja: <strong>{rupiah(totalSemuaBelanja)}</strong>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-800">Riwayat Pesanan</h2>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Total: <strong>{riwayatList.length} pesanan</strong> | Belanja: <strong>{rupiah(totalSemuaBelanja)}</strong>
+          </p>
         </div>
+
+        {/* TOMBOL HAPUS RIWAYAT DENGAN KONFIRMASI */}
+        <button
+          onClick={handleHapusRiwayat}
+          className="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer"
+        >
+          🗑️ Hapus Semua Riwayat
+        </button>
       </div>
 
       <div className="space-y-4">
